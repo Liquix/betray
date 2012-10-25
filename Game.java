@@ -119,7 +119,7 @@ public class Game extends Canvas implements Runnable{
             level.loadLevelFromFile();
             if(player.spawnAtOldPosition){
                 level.removeEntity(player);
-                player = new Player(level, level.lastx, level.lasty+20, input);
+                player = new Player(level, level.lastx, level.lasty+8, input);  // NOT good
                 level.addEntity(player);
                 level.isInside = false;
                 player.spawnAtOldPosition = false;
@@ -128,7 +128,7 @@ public class Game extends Canvas implements Runnable{
             }
 
             level.removeEntity(player);
-            player = new Player(level, 15, 15, input);
+            player = new Player(level, 15, 15, input);  // NOT good
             level.addEntity(player);
             level.isInside = true;
 
