@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.image.*;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.io.IOException;
 
 public class Game extends Canvas implements Runnable{
 
@@ -113,8 +114,10 @@ public class Game extends Canvas implements Runnable{
         level.tick();
         tickCount++;
         if(player.isTouchingDoor){
-            level.image = level.getTile(player.x >> 3, player.y >> 3).image;
+            level.imagePath = level.getTile(player.x >> 3, player.y >> 3).imgPath;
             level.loadLevelFromFile();
+            player = new Player(level, 15, 15, input);
+            level.addEntity(player);
         }
     }
 

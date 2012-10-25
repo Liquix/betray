@@ -9,13 +9,13 @@ public abstract class Tile{
 	public static final Tile WATER = 	new AnimatedTile(3, new int[][] { {0, 5}, {1, 5}, {2, 5}, {1, 5} }, Colors.get(-1, 004, 115, -1), 0xFF0000FF, 1000);
 	public static final Tile WALL_HORIZONTAL =	new BasicSolidTile(4, 0, 1, Colors.get(131, 222, 233, 255), 0xFFFFFFFF);
 	public static final Tile WALL_VERITCAL = 	new BasicSolidTile(5, 1, 1, Colors.get(131, 222, 233, 255), 0xFFFFFF00);
-	public static final Tile DOOR =				new DoorTile(6, 0, 3, Colors.get(050, 505, -1, -1), 0xFFFF00FF, "res/testLevel.png");
+	public static final Tile DOOR =				new DoorTile(6, 3, 0, Colors.get(050, 505, -1, -1), 0xFFFF00FF, "res/levels/testLevel.png");
 
 	protected byte id;
 	protected boolean solid;
 	protected boolean emitter;
 	private int levelColor;
-	public BufferedImage image;
+	public String imgPath;
 
 	public Tile(int id, boolean isSolid, boolean isEmitter, int levelColor){
 		this.id = (byte) id;
@@ -28,6 +28,20 @@ public abstract class Tile{
 
 		tiles[id] = this;
 	}
+
+	public Tile(int id, boolean isSolid, boolean isEmitter, int levelColor, String imgPath){
+		this.id = (byte) id;
+		if(tiles[id] != null)
+			throw new RuntimeException("Duplicate tile id on " + id);
+		
+		this.solid = isSolid;
+		this.emitter = isEmitter;
+		this.levelColor = levelColor;
+		this.imgPath = imgPath;
+
+		tiles[id] = this;
+	}
+
 
 	public byte getId(){
 		return id;

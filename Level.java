@@ -13,7 +13,7 @@ public class Level{
 
 	public List<Entity> entities = new ArrayList<Entity>();
 
-	private String imagePath;
+	public String imagePath;
 	public BufferedImage image;
 
 	public Level(String imagePath){
@@ -59,8 +59,14 @@ public class Level{
 
 	public void loadLevelFromFile(){
 		try{
+			System.out.println("ImagePath: " + imagePath);
 			File f = new File(imagePath);
-            this.image = ImageIO.read(f);
+
+            image = ImageIO.read(f);
+            if(image == null){
+            	System.out.println("image is broken");
+            	return;
+            }
             this.width = image.getWidth();
             this.height = image.getHeight();
 
