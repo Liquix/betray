@@ -114,6 +114,7 @@ public class Game extends Canvas implements Runnable{
         level.tick();
         tickCount++;
         if(player.isTouchingDoor){
+            level.removeEntity(player);
             level.imagePath = level.getTile(player.x >> 3, player.y >> 3).imgPath;
             level.loadLevelFromFile();
             player = new Player(level, 15, 15, input);

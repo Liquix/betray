@@ -40,9 +40,11 @@ public class Player extends Mob{
         	isSwimming = false;
 
         if(level.getTile(this.x >> 3, this.y >> 3).getId() == 6)
+        	level.lastArea = level.imagePath;
         	isTouchingDoor = true;
 
         if(isTouchingDoor && level.getTile(this.x >> 3, this.y >> 3).getId() != 6)
+        	//level.currentArea = level.imagePath;
         	isTouchingDoor = false;
 
 

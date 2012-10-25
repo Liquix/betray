@@ -14,7 +14,10 @@ public class Level{
 	public List<Entity> entities = new ArrayList<Entity>();
 
 	public String imagePath;
+	public String lastArea;
+	public String currentArea;
 	public BufferedImage image;
+	public String lastLastArea;
 
 	public Level(String imagePath){
 
@@ -58,8 +61,12 @@ public class Level{
 	}
 
 	public void loadLevelFromFile(){
+		if(imagePath.equals(lastArea))
+			imagePath = (lastLastArea);
+
 		try{
-			System.out.println("ImagePath: " + imagePath);
+			System.out.println("current: "+currentArea+" last: "+lastArea+" lastLast: "+lastLastArea);
+
 			File f = new File(imagePath);
 
             image = ImageIO.read(f);
@@ -76,6 +83,7 @@ public class Level{
 		catch(IOException e){
 			e.printStackTrace();
 		}
+		lastLastArea = lastArea;
 	}
 
 	private void loadTiles(){
@@ -141,5 +149,9 @@ public class Level{
 
 	public void addEntity(Entity entity){
 		this.entities.add(entity);
+	}
+
+	public void removeEntity(Entity entity){
+		this.entities.remove(entity);
 	}
 }
