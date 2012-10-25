@@ -1,3 +1,5 @@
+import java.awt.image.BufferedImage;
+
 public abstract class Tile{
 
 	public static Tile[] tiles = 		new Tile[256];
@@ -13,6 +15,7 @@ public abstract class Tile{
 	protected boolean solid;
 	protected boolean emitter;
 	private int levelColor;
+	public BufferedImage image;
 
 	public Tile(int id, boolean isSolid, boolean isEmitter, int levelColor){
 		this.id = (byte) id;
