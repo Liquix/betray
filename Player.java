@@ -6,6 +6,7 @@ public class Player extends Mob{
 	protected boolean isSwimming = false;
 	private int tickCount;
 	public boolean isTouchingDoor;
+	public boolean spawnAtOldPosition = false;
 
 	public Player(Level level, int x, int y, InputHandler input){
 		super(level, "Player", x, y, 1);
@@ -39,12 +40,19 @@ public class Player extends Mob{
         if(isSwimming && level.getTile(this.x >> 3, this.y >> 3).getId() != 3)
         	isSwimming = false;
 
-        if(level.getTile(this.x >> 3, this.y >> 3).getId() == 6)
+        if(level.getTile(this.x >> 3, this.y >> 3).getId() == 6){
+        	if(!level.isInside){
+        		level.lastx = x;
+        		level.lasty = y;
+        	}
+        	if(level.isInside){
+        		spawnAtOldPosition = true;
+        	}
         	level.lastArea = level.imagePath;
         	isTouchingDoor = true;
+        }
 
         if(isTouchingDoor && level.getTile(this.x >> 3, this.y >> 3).getId() != 6)
-        	//level.currentArea = level.imagePath;
         	isTouchingDoor = false;
 
 

@@ -15,9 +15,10 @@ public class Level{
 
 	public String imagePath;
 	public String lastArea;
-	public String currentArea;
 	public BufferedImage image;
 	public String lastLastArea;
+	public boolean isInside;
+	int lastx, lasty;
 
 	public Level(String imagePath){
 
@@ -61,11 +62,12 @@ public class Level{
 	}
 
 	public void loadLevelFromFile(){
-		if(imagePath.equals(lastArea))
+		if(imagePath.equals(lastArea)){
+			isInside = false;
 			imagePath = (lastLastArea);
+		}
 
 		try{
-			System.out.println("current: "+currentArea+" last: "+lastArea+" lastLast: "+lastLastArea);
 
 			File f = new File(imagePath);
 

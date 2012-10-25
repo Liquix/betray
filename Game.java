@@ -40,6 +40,7 @@ public class Game extends Canvas implements Runnable{
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        this.requestFocus();    // No clicking in to move anymore!
     }
 
     public void init(){
@@ -114,11 +115,24 @@ public class Game extends Canvas implements Runnable{
         level.tick();
         tickCount++;
         if(player.isTouchingDoor){
-            level.removeEntity(player);
             level.imagePath = level.getTile(player.x >> 3, player.y >> 3).imgPath;
             level.loadLevelFromFile();
+            if(player.spawnAtOldPosition){
+                level.removeEntity(player);
+                player = new Player(level, level.lastx, level.lasty+20, input);
+                level.addEntity(player);
+                level.isInside = false;
+                player.spawnAtOldPosition = false;
+                player.isTouchingDoor = false;
+                return;
+            }
+
+            level.removeEntity(player);
             player = new Player(level, 15, 15, input);
             level.addEntity(player);
+            level.isInside = true;
+
+
         }
     }
 
