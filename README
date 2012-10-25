@@ -1,5 +1,7 @@
 This is a 2D game in java. It is currently in heavy development.
 
+To try it out:
+
 cd path/to/clone
 javac *.java
 java Game
