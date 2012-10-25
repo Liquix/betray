@@ -1,1 +1,5 @@
-This is a 2D game in java. It is currently in development.
+This is a 2D game in java. It is currently in heavy development.
+
+cd path/to/clone
+javac *.java
+java Game
