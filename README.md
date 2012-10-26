@@ -6,7 +6,7 @@ This is a 2D game in java. It is currently in heavy development.
 
 compilation is simple.
 
-    $ cd /path/to/betray\n
+    $ cd /path/to/betray
     $ javac *.java
 
 ##running
@@ -14,6 +14,6 @@ compilation is simple.
 betray is in alpha, so currently the only way to run it is through the command line.
 in release versions of the game, standalone versions will be available.
 
-    $ cd path/to/betray\n
-    $ javac *.java\n
+    $ cd path/to/betray
+    $ javac *.java
     $ java Game
