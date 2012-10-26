@@ -2,3 +2,5 @@
 ._DS_Store
 ._*
 *.class
+*~
+*.swp
