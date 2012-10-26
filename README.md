@@ -15,5 +15,4 @@ betray is in alpha, so currently the only way to run it is through the command l
 in release versions of the game, standalone versions will be available.
 
     $ cd path/to/betray
-    $ javac *.java
     $ java Game
