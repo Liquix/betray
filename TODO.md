@@ -1,5 +1,7 @@
 ##todo
 
+List for any fixes, improvements, or additions to betray.
+
 ##bugfixes
 
 Please let me know about any bugs you find!
