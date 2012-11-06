@@ -7,10 +7,12 @@ public class Player extends Mob{
 	private int tickCount;
 	public boolean isTouchingDoor;
 	public boolean spawnAtOldPosition = false;
+    public String userName;
 
-	public Player(Level level, int x, int y, InputHandler input){
+	public Player(Level level, int x, int y, InputHandler input, String userName){
 		super(level, "Player", x, y, 1);
 		this.input = input;
+        this.userName = userName;
 	}
 
 	public void tick(){
@@ -106,6 +108,10 @@ public class Player extends Mob{
 			screen.render( xOffset + (modifier * flipBottom), (yOffset + modifier), (xTile + (yTile + 1) * 32), color, flipBottom, scale);
 			screen.render( (xOffset + modifier - (modifier * flipBottom)), (yOffset + modifier), ((xTile + 1) + (yTile + 1) * 32), color, flipBottom, scale);
 		}
+
+        if(userName != null){
+            Font.render(userName, screen, xOffset - ((userName.length() -1)/ 2 * 8), yOffset - 10, Colors.get(-1, -1, -1, 555), 1);
+        }
 	}
 
 	public boolean hasCollided(int xa, int ya){

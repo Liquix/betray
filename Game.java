@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.image.*;
 import java.awt.Graphics;
@@ -60,7 +61,7 @@ public class Game extends Canvas implements Runnable{
         screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("res/spriteSheet.png"));
         input = new InputHandler(this);
         level = new Level("res/levels/waterTestLevel.png");
-        player = new Player(level, 15, 15, input);
+        player = new Player(level, 15, 15, input, JOptionPane.showInputDialog(this, "What's your name?"));
         level.addEntity(player);
     }
 
@@ -119,7 +120,8 @@ public class Game extends Canvas implements Runnable{
             level.loadLevelFromFile();
             if(player.spawnAtOldPosition){
                 level.removeEntity(player);
-                player = new Player(level, level.lastx, level.lasty+8, input);  // NOT good
+                String oldUserName = player.userName;
+                player = new Player(level, level.lastx, level.lasty+8, input, oldUserName);  // NOT good
                 level.addEntity(player);
                 level.isInside = false;
                 player.spawnAtOldPosition = false;
@@ -128,7 +130,8 @@ public class Game extends Canvas implements Runnable{
             }
 
             level.removeEntity(player);
-            player = new Player(level, 15, 15, input);  // NOT good
+            String oldUserName = player.userName;
+            player = new Player(level, 15, 15, input, oldUserName);  // NOT good
             level.addEntity(player);
             level.isInside = true;
 
