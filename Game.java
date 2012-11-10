@@ -25,6 +25,9 @@ public class Game extends Canvas implements Runnable{
     public Level level;
     public Player player;
 
+    private GameClient socketClient;
+    private GameServer socketServer;
+
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ( (DataBufferInt) image.getRaster().getDataBuffer() ).getData();
     private int[] colors = new int[6*6*6];  // RGB
@@ -63,6 +66,8 @@ public class Game extends Canvas implements Runnable{
         level = new Level("res/levels/waterTestLevel.png");
         player = new Player(level, 15, 15, input, JOptionPane.showInputDialog(this, "What's your name?"));
         level.addEntity(player);
+
+        socketClient.sendData("ping".getBytes());
     }
 
     public void run(){
@@ -104,7 +109,7 @@ public class Game extends Canvas implements Runnable{
 
             if( (System.currentTimeMillis() - lastTimer) > 1000){
                 lastTimer += 1000;
-                System.out.println("Frames: " + frames + ", Ticks: " + ticks);
+                frame.setTitle("Frames: " + frames + ", Ticks: " + ticks);
                 frames = 0;
                 ticks = 0;
             }
@@ -171,6 +176,14 @@ public class Game extends Canvas implements Runnable{
     public synchronized void start(){
         running = true;
         new Thread(this).start();
+
+        if(JOptionPane.showConfirmDialog(this, "Run server?") == 0){
+            socketServer = new GameServer(this);
+            socketServer.start();
+        }
+
+        socketClient = new GameClient(this, "localhost");
+        socketClient.start();
     }
 
     public synchronized void stop(){
