@@ -64,10 +64,11 @@ public class Game extends Canvas implements Runnable{
         screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("res/spriteSheet.png"));
         input = new InputHandler(this);
         level = new Level("res/levels/waterTestLevel.png");
-        player = new Player(level, 15, 15, input, JOptionPane.showInputDialog(this, "What's your name?"));
-        level.addEntity(player);
 
-        socketClient.sendData("ping".getBytes());
+        Player player = null;        
+
+        Packet00Login loginPacket = new Packet00Login(JOptionPane.showInputDialog(this, "What's your name?"));
+        loginPacket.writeData(socketClient);
     }
 
     public void run(){
@@ -120,7 +121,7 @@ public class Game extends Canvas implements Runnable{
     public void tick(){
         level.tick();
         tickCount++;
-        if(player.isTouchingDoor){
+        if(player != null && player.isTouchingDoor){
             level.imagePath = level.getTile(player.x >> 3, player.y >> 3).imgPath;
             level.loadLevelFromFile();
             if(player.spawnAtOldPosition){
@@ -151,8 +152,13 @@ public class Game extends Canvas implements Runnable{
             return;
         }
 
-        int xOffset = player.x - (screen.width / 2);
-        int yOffset = player.y - (screen.height / 2);
+        int xOffset = 0;
+        int yOffset = 0;
+
+        if(player != null){
+            xOffset = player.x - (screen.width / 2);
+            yOffset = player.y - (screen.height / 2);
+        }
 
         level.renderTiles(screen, xOffset, yOffset);
 
@@ -182,7 +188,7 @@ public class Game extends Canvas implements Runnable{
             socketServer.start();
         }
 
-        socketClient = new GameClient(this, "localhost");
+        socketClient = new GameClient(this, "127.0.0.1");
         socketClient.start();
     }
 
